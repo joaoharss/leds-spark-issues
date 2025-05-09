@@ -1,0 +1,24 @@
+name: Registrar Data de Fim
+
+on:
+  issues:
+    types:
+      - closed
+
+jobs:
+  registrar-data-fim:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Adicionar comentário com a data de fim
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issueNumber = context.issue.number;
+            const dataAtual = new Date().toISOString().split('T')[0]; // formato: YYYY-MM-DD
+            const comentario = `✅ Data de Fim registrada automaticamente: **${dataAtual}**`;
+
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: issueNumber,
+              body: comentario
+            });
