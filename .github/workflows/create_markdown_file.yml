@@ -19,9 +19,13 @@ jobs:
         echo "" > arquivo-vazio.md
 
     - name: Comitar e subir o arquivo
+      env:
+        TOKEN: ${{ secrets.GH_TOKEN }}
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
+        git remote set-url origin https://x-access-token:${TOKEN}@github.com/${{ github.repository }}
         git add arquivo-vazio.md
         git commit -m "Adiciona arquivo .md vazio" || echo "Nenhuma alteração para commitar"
         git push
+
