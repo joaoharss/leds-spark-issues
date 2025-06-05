@@ -20,7 +20,7 @@ jobs:
 
     - name: Comitar e subir o arquivo
       env:
-        TOKEN: ${{ secrets.GH_TOKEN }}
+        TOKEN: ${{ secrets.token_md }}
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
